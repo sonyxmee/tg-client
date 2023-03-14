@@ -1,10 +1,3 @@
-"""
-Удалить все чаты с удалёнными аккаунтами
-1) получить список всех чатов
-2) у чата получить User
-3) проверить если у User поле deleted: true, то удалить чат
-"""
-
 import configparser
 from telethon import TelegramClient
 
