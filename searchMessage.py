@@ -9,13 +9,13 @@ api_hash = config['TELEGRAM']['api_hash']
 client = TelegramClient('account', api_id, api_hash)
 
 
-async def main(search_req, folder):
+async def main(search_req, folder_title):
     count = 0
     peers = []
     folders = await client(functions.messages.GetDialogFiltersRequest())
 
     for folder in folders[1:]:
-        if folder.title == folder:
+        if folder.title == folder_title:
             try:
                 # добавляю все каналы и чаты папки в список
                 peers.extend(folder.pinned_peers)
