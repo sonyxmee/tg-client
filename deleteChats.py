@@ -22,5 +22,6 @@ async def main():
         print('Deleted accounts were not found.')
 
 
-with client:
-    client.loop.run_until_complete(main())
+if __name__ == '__main__':
+    with client:
+        client.loop.run_until_complete(main())
