@@ -1,5 +1,3 @@
 .idea/
 *.session
-pyrogram_.py
-file
-newfile
+src/*
