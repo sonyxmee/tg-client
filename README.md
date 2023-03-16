@@ -2,7 +2,7 @@
 1) pip install -r requirements.txt
 2) создать приложение [здесь](https://my.telegram.org/) 
 3) получить api_id, api_hash и вставить эти знаечния в config.ini
-4) запустить файл deleteChat.py или commonChats.py или folderNotify.py
+4) запустить файл deleteChat.py или commonChats.py или folderNotify.py или searchMessage.py
 
 deleteChats.py - программа для удаления всех чатов с удалёнными аккаунтами.
 
@@ -33,7 +33,7 @@ folderNotify.py - программа для отключения всех уве
 Используется библиотека Telethon
 
 
-serachMessage - Поиск сообщений по ключевым словам только среди папки (по умолчанию ищет везде, вне зависимости от папки)
+searchMessage.py - Поиск сообщений по ключевым словам только среди папки (по умолчанию ищет везде, вне зависимости от папки)
 
 Алгоритм программы:
 1) получить диалоги папки
