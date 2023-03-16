@@ -10,13 +10,12 @@ api_hash = config['TELEGRAM']['api_hash']
 client = TelegramClient('account', api_id, api_hash)
 
 
-async def main():
+async def main(folder):
     peers = []
     folders = await client(functions.messages.GetDialogFiltersRequest())
 
-    folder_name = 'Учеба'
     for folder in folders[1:]:
-        if folder.title == folder_name:
+        if folder.title == folder:
             try:
                 # добавляю все каналы и чаты папки в список
                 peers.extend(folder.pinned_peers)
@@ -36,8 +35,10 @@ async def main():
                 # скорее всего у телеграма в свойстве 'Mute forever' стоит дата до 2037 года, т.е. на 15 лет
             )
         ))
-    print(f'Уведомления у всех пользователей чата {folder_name} отключены')
+    print(f'Уведомления у всех пользователей чата {folder} отключены')
 
 
-with client:
-    client.loop.run_until_complete(main())
+if __name__ == '__main__':
+    with client:
+        folder_name = 'Учеба'
+        client.loop.run_until_complete(main(folder_name))
