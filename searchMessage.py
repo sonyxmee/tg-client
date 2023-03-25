@@ -24,6 +24,9 @@ async def main(search_req, folder_title):
                 break
             except Exception:
                 continue
+    if not peers:
+        print('Folder is not found!')
+        exit()
     for peer in peers:
         result = await client(functions.messages.SearchRequest(
             peer=peer,
@@ -40,24 +43,25 @@ async def main(search_req, folder_title):
         ))
         # print(result.stringify())
         count += len(result.messages)
-
         for mes in result.messages:
             dialog_id = 0
             from_id = 0
-
-            match type(mes.peer_id):
-                case types.PeerChannel:
-                    dialog_id = mes.peer_id.channel_id
-                    from_id = mes.from_id.user_id
-                case types.PeerUser:
-                    dialog_id = mes.peer_id.user_id
-                    from_id = dialog_id
-                case types.PeerChat:
-                    dialog_id = mes.peer_id.chat_id
-                    from_id = mes.from_id.user_id
-
-            print(f'Dialog id: {dialog_id}\nSender id: {from_id}\n'
-                  f'Message: {mes.message}\n\n')
+            try:
+                match type(mes.peer_id):
+                    case types.PeerChannel:
+                        dialog_id = mes.peer_id.channel_id
+                        from_id = mes.from_id.user_id
+                    case types.PeerUser:
+                        dialog_id = mes.peer_id.user_id
+                        from_id = mes.from_id.user_id
+                    case types.PeerChat:
+                        dialog_id = mes.peer_id.chat_id
+                        from_id = mes.from_id.user_id
+            except AttributeError:
+                from_id = None
+            if from_id is not None:
+                print(f"Sender id: {from_id}")
+            print(f'Dialog id: {dialog_id}\nMessage: {mes.message}\n\n')
 
     print(f'Count of founded messages: {count}\n\n')
 
@@ -65,5 +69,5 @@ async def main(search_req, folder_title):
 if __name__ == '__main__':
     with client:
         search_request = 'Привет'
-        folder_name = 'Учеба'
+        folder_name = 'Папка'
         client.loop.run_until_complete(main(search_request, folder_name))
