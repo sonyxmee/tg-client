@@ -5,17 +5,9 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 api_id = int(config['TELEGRAM']['api_id'])
 api_hash = config['TELEGRAM']['api_hash']
-client = TelegramClient('telethon', api_id, api_hash)
+client = TelegramClient('account_telethon', api_id, api_hash)
 
 list_to_del = []
-
-
-# async def delete_chats():
-#     c = 0
-#     for el in list_to_del:
-#         await client.delete_dialog(el)
-#         c += 1
-#     print(f'{c} chats have been deleted')
 
 
 async def dry_run():
@@ -30,7 +22,6 @@ async def dry_run():
             await client.delete_dialog(el)
             c += 1
         print(f'{c} chats have been deleted')
-        # await delete_chats()
     else:
         exit()
 
@@ -42,7 +33,6 @@ async def main():
             if dialog.entity.deleted:
                 list_to_del.append(dialog.entity.id)
                 k = False
-                # await client.delete_dialog(dialog)
         except Exception:
             continue
     if k:
